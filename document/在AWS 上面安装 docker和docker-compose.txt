@@ -1,0 +1,76 @@
+在AWS 上面安装 docker和docker-compose
+
+https://qiita.com/shinespark/items/a8019b7ca99e4a30d286
+安装docker
+
+# yum の更新
+$ sudo yum update -y
+
+# yum から docker をインストール
+$ sudo yum install -y docker
+
+# docker サービスの起動
+$ sudo service docker start
+Starting cgconfig service:                                 [  OK  ]
+Starting docker:                                           [  OK  ]
+
+# ec2-user を docker グループに追加する
+$ sudo usermod -a -G docker ec2-user
+
+$ docker info
+
+========================================================
+英文版说明
+https://docs.docker.com/compose/install/
+
+# 一時的にスーパーユーザーになる
+$ sudo -i
+
+安装最新版本
+sudo curl -L "https://github.com/docker/compose/releases/download/1.27.4/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+
+给与权限
+sudo chmod +x /usr/local/bin/docker-compose
+
+检查是否是最新版本
+docker-compose --version
+docker-compose version 1.27.4, build 1110ad01
+
+删除docker-compose
+sudo rm /usr/local/bin/docker-compose
+
+使用alias可以简化命令长度
+docker, docker-compose コマンドを都度打つのは手間なので、aliasを付与しとくと楽。
+alias d='docker'
+alias dc='docker-compose'
+
+
+=============================================================================
+
+把现在按照的包都写入到requirements.txt
+pip freeze > requirements.txt
+
+读取requirements.txt里面的包 一起安装
+pip install -r requirements.txt
+
+自体更新 更新是-U 大写 要注意
+pip install -U pip
+pip install -U <package-name>
+
+需要更新的包都列出来，并显示最新版本
+pip list -o
+
+显示安装包的详细信息，版本，安装地址等
+pip show <package-name>
+
+$ pip show pip
+Name: pip
+Version: 20.3.3
+Summary: The PyPA recommended tool for installing Python packages.
+Home-page: https://pip.pypa.io/
+Author: The pip developers
+Author-email: distutils-sig@python.org
+License: MIT
+Location: /usr/local/lib/python3.7/site-packages
+Requires:
+Required-by:

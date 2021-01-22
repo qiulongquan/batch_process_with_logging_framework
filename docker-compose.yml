@@ -1,0 +1,39 @@
+version: '3'
+services:
+  python3:
+    build: ./docker/python
+    container_name: 'python3'
+    working_dir: '/root/'
+    tty: true
+    volumes:
+      - ./storage/python:/root/hoststorage
+
+  postgresql:
+    image: postgres
+    container_name: postgresql
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./storage/postgres/init:/docker-entrypoint-initdb.d
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_INITDB_ARGS: "--encoding=UTF-8"
+    hostname: postgres
+    user: root
+
+  pgadmin4:
+    image: dpage/pgadmin4:3.3
+    container_name: pgadmin4
+    ports:
+      - "80:80"
+    volumes:
+      - ./storage/pgadmin:/var/lib/pgadmin/storage
+    environment:
+      PGADMIN_DEFAULT_EMAIL: root
+      PGADMIN_DEFAULT_PASSWORD: root
+    hostname: pgadmin4
+
+
+
+

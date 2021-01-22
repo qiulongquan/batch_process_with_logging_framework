@@ -1,0 +1,42 @@
+环境构筑 本地环境构筑  本周   应该根据服务器的python版本来决定开发版本   最好  3.8.6   现在的pc没有管理员权限  使用受到限制
+还有数据库的 构筑   本周    应该根据服务器的python版本来决定开发版本    
+
+创建表的过程参考下面的例子，也可以使用脚本来创建表 
+https://www.runoob.com/mysql/mysql-create-tables.html
+
+数据库中的操作基本都在这个页面里面
+https://www.runoob.com/mysql/mysql-select-database.html
+
+データベース定義書サンプル
+https://fulfillment-c.com/database/table-definition-document/
+
+
+进入数据库RUNOOB并创建表runoob_tbl的过程
+root@host# mysql -u root -p
+Enter password:*******
+mysql> use RUNOOB;
+Database changed
+mysql> CREATE TABLE runoob_tbl(
+   -> runoob_id INT NOT NULL AUTO_INCREMENT,
+   -> runoob_title VARCHAR(100) NOT NULL,
+   -> runoob_author VARCHAR(40) NOT NULL,
+   -> submission_date DATE,
+   -> PRIMARY KEY ( runoob_id )
+   -> )ENGINE=InnoDB DEFAULT CHARSET=utf8;
+Query OK, 0 rows affected (0.16 sec)
+mysql>
+
+=============================================  实际创建表的DDL语言
+
+CREATE TABLE IF NOT EXISTS `City` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Name` char(35) NOT NULL DEFAULT '',
+  `CountryCode` char(3) NOT NULL DEFAULT '',
+  `District` char(20) NOT NULL DEFAULT '',
+  `Population` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`ID`)
+) ENGINE=INNODB DEFAULT CHARSET=utf8
+
+
+CREATE INDEX インデックス名 ON テーブル名 (インデックス対象列)
+DROP INDEX インデックス名 ON テーブル名
