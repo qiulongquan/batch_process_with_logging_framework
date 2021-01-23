@@ -1,0 +1,13 @@
+3.236.223.144   NG
+
+其他形式都可以
+ec2-3-236-223-144.compute-1.amazonaws.com
+
+ip-172-31-75-135.ec2.internal
+
+172.31.75.135
+
+试一下这个
+"HostIp": "0.0.0.0",
+
+docker inspect postgresql   从这个里面获取ip 也可以
