@@ -33,7 +33,3 @@ services:
       PGADMIN_DEFAULT_EMAIL: root
       PGADMIN_DEFAULT_PASSWORD: root
     hostname: pgadmin4
-
-
-
-
