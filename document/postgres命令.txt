@@ -1,0 +1,41 @@
+创建表  CREATE TABLE pgschema_qiu.weather1 (); 要大写 CREATE TABLE
+
+查看schema底下所有表的结构
+\d pgschema_qiu.*
+
+查看schema底下所有表的列表 没有具体表结构
+\dt pgschema_qiu.*
+
+=====================================================
+
+root=# CREATE TABLE pgschema_qiu.weather (
+root(#     city            varchar(80),
+root(#     temp_lo         int,           -- 最低気温
+root(#     temp_hi         int,           -- 最高気温
+root(#     prcp            real,          -- 降水量
+root(#     date            date
+root(# );
+CREATE TABLE
+root=# CREATE TABLE pgschema_qiu.weather1 ();
+CREATE TABLE
+root=# \d pgschema_qiu.*
+                   Table "pgschema_qiu.weather"
+ Column  |         Type          | Collation | Nullable | Default
+---------+-----------------------+-----------+----------+---------
+ city    | character varying(80) |           |          |
+ temp_lo | integer               |           |          |
+ temp_hi | integer               |           |          |
+ prcp    | real                  |           |          |
+ date    | date                  |           |          |
+
+         Table "pgschema_qiu.weather1"
+ Column | Type | Collation | Nullable | Default
+--------+------+-----------+----------+---------
+
+root=# \dt pgschema_qiu.*
+            List of relations
+    Schema    |   Name   | Type  | Owner
+--------------+----------+-------+-------
+ pgschema_qiu | weather  | table | root
+ pgschema_qiu | weather1 | table | root
+(2 rows)

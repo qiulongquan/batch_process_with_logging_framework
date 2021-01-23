@@ -6,7 +6,7 @@ services:
     working_dir: '/root/'
     tty: true
     volumes:
-      - ./storage/python:/root/hoststorage
+      - ./storage/python:/root/batch_dev
 
   postgresql:
     image: postgres
