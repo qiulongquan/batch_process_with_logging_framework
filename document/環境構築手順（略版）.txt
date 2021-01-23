@@ -17,19 +17,3 @@
 1. コマンドプロンプトを起動し、作業フォルダに移動
 
 2. "docker-compose exec (コンテナ名) bash"を実行
-
-参考
-
-http://docs.docker.jp/compose/compose-file.html
-
-https://hub.docker.com/r/dpage/pgadmin4
-
-https://docs.docker.com/compose/compose-file/compose-file-v3/
-
-https://qiita.com/mabubu0203/items/5cdff1caf2b024df1d95
-
-中文版
-https://www.docker.org.cn/book/docker/docker-push-image-13.html
-
-中文版
-https://www.docker.org.cn/page/resources.html

@@ -1,0 +1,29 @@
+对docker-compose.yml进行更改或者Dockerfile文件修改后，使用下面的命令重新构筑环境。
+$ docker-compose down
+$ docker-compose up --build
+
+大量docker-compose.yml的参照模板
+https://github.com/search?q=in%3Apath+docker-compose.yml+extension%3Ayml&type=Code
+
+
+参考
+
+http://docs.docker.jp/compose/compose-file.html
+
+https://hub.docker.com/r/dpage/pgadmin4
+
+https://docs.docker.com/compose/compose-file/compose-file-v3/
+
+https://qiita.com/mabubu0203/items/5cdff1caf2b024df1d95
+
+一个实际的python django db 组合的app创建例子
+https://docs.docker.com/compose/django/
+
+中文版
+https://www.docker.org.cn/book/docker/docker-push-image-13.html
+
+中文版
+https://www.docker.org.cn/page/resources.html
+
+docker compose命令官网
+https://docs.docker.com/compose/reference/up/

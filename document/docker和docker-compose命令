@@ -1,3 +1,0 @@
-对docker-compose.yml进行更改或者Dockerfile文件修改后，使用下面的命令重新构筑环境。
-$ docker-compose down
-$ docker-compose up --build
