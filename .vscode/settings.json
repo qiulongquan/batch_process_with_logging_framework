@@ -1,0 +1,12 @@
+{
+    "emmet.excludeLanguages": [
+
+
+        "markdown"
+    ],
+    "editor.formatOnPaste": true,
+    "editor.formatOnSave": true,
+    "editor.formatOnType": true,
+    "python.formatting.provider": "yapf",
+    "python.linting.flake8Enabled": true,
+}

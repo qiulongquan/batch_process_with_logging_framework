@@ -8,7 +8,6 @@ Author：QIU
 Objective：用于测试batch的开发代码雏形
 """
 
-
 import sys
 from pathlib import Path
 # 获取my_batch的绝对路径，然后加入到sys.path系统路径中去，这样系统运行的时候就可以找到conf这个自定义库了
@@ -21,12 +20,14 @@ import numpy as np
 import datetime
 import os
 import logging
+
 # import time
 # import click
 
 
 # ロギングのインスタンス定義
-def get_logger(logger_disabled, logging_name, level, log_path, logging_file_name, maxBytes, backupCount, formatting):
+def get_logger(logger_disabled, logging_name, level, log_path,
+               logging_file_name, maxBytes, backupCount, formatting):
     # 親ディレクトリをアプリケーションのホーム(${app_home})に設定
     app_home = str(Path(__file__).parents[1])
     # logging设定
@@ -34,29 +35,50 @@ def get_logger(logger_disabled, logging_name, level, log_path, logging_file_name
     logger.setLevel(level=level)
     # error logging conf定義
     # 定义一个RotatingFileHandler，最多备份5个日志文件，每个日志文件最大2MB
-    rHandler = RotatingFileHandler(os.path.join(
-        app_home, log_path, logging_file_name), encoding="utf-8", maxBytes=maxBytes, backupCount=backupCount)
-    rHandler.setLevel(level)
+    # rHandler = RotatingFileHandler(os.path.join(app_home, log_path,
+    #                                             logging_file_name),
+    #                                encoding="utf-8",
+    #                                maxBytes=maxBytes,
+    #                                backupCount=backupCount)
+    # rHandler.setLevel(level)
+    # formatter = logging.Formatter(formatting)
+    # rHandler.setFormatter(formatter)
+    # logger.addHandler(rHandler)
+    # logger.disabled = logger_disabled
+
+    # 还有一种定义是filehandler  这种方式不进行日志回滚
+    filehandle = logging.FileHandler(os.path.join(app_home, log_path,
+                                                  logging_file_name),
+                                     encoding="utf-8")
+    filehandle.setLevel(level=level)
     formatter = logging.Formatter(formatting)
-    rHandler.setFormatter(formatter)
-    logger.addHandler(rHandler)
-    logger.disabled = logger_disabled
+    filehandle.setFormatter(formatter)
+    logger.addHandler(filehandle)
     return logger
 
 
 # ロギング対象（logging_batch）作成
-logging_batch = get_logger(BatchConf.logger_disabled_batch, BatchConf.logging_name_batch, BatchConf.level_batch, BatchConf.log_path_batch,
-                           BatchConf.logging_file_name_batch, BatchConf.maxBytes_batch, BatchConf.backupCount_batch, BatchConf.formatting_batch)
+logging_batch = get_logger(
+    BatchConf.logger_disabled_batch, BatchConf.logging_name_batch,
+    BatchConf.level_batch, BatchConf.log_path_batch,
+    BatchConf.logging_file_name_batch, BatchConf.maxBytes_batch,
+    BatchConf.backupCount_batch, BatchConf.formatting_batch)
 
 # ロギング対象（logging_error）作成
-logging_error = get_logger(BatchConf.logger_disabled_error, BatchConf.logging_name_error, BatchConf.level_error, BatchConf.log_path_error,
-                           BatchConf.logging_file_name_error, BatchConf.maxBytes_error, BatchConf.backupCount_error, BatchConf.formatting_error)
+logging_error = get_logger(
+    BatchConf.logger_disabled_error, BatchConf.logging_name_error,
+    BatchConf.level_error, BatchConf.log_path_error,
+    BatchConf.logging_file_name_error, BatchConf.maxBytes_error,
+    BatchConf.backupCount_error, BatchConf.formatting_error)
 
 
 def db_connect():
     print("db_connect runing")
-    df = pd.DataFrame(
-        np.array([np.arange(1, 5), np.arange(11, 15), np.arange(101, 105)]), columns=['帳票分類コード', '会社コード', '基準日', '株主番号'])
+    df = pd.DataFrame(np.array(
+        [np.arange(1, 5),
+         np.arange(11, 15),
+         np.arange(101, 105)]),
+                      columns=['帳票分類コード', '会社コード', '基準日', '株主番号'])
     return df
 
 
@@ -76,8 +98,7 @@ def shareholder_number_change(df):
                 # 有异常发生
                 print('when i={} ,ZeroDivisionError'.format(i))
                 # 这里需要定义一下输出内容和格式
-                logging_error.exception(
-                    'when i={} ,ZeroDivisionError'.format(i))
+                logging_error.error('when i={} ,ZeroDivisionError'.format(i))
 
     def _transform_data():
         print("_transform_data runing")
@@ -97,8 +118,7 @@ def shareholder_number_change(df):
                 # 有异常发生
                 print('IOError:', e)
                 # 这里需要定义一下输出内容和格式
-                logging_error.exception(CharacterTransformation.e002)
-                # _collection_error_data('株主番号変更バッチ', 1, e)
+                logging_error.error(CharacterTransformation.e002)
             finally:
                 logging.exception('this is warning message')
 
@@ -107,27 +127,27 @@ def shareholder_number_change(df):
         try:
             f = open('myfile.txt')
             s = f.readline()
-            i = int(s.strip())
-        except OSError as err:
-            print("OS error: {0}".format(err))
-            logging_error.exception("Exception occurred:{}".format(err))
+            print(s)
+        except OSError as e:
+            print("OS error: {0}".format(e))
+            logging_error.error("Exception occurred:{}".format(e))
         except ValueError as e:
             print("Could not convert data to an integer.")
-            logging_error.exception("Exception occurred:{}".format(e))
+            logging_error.error("Exception occurred:{}".format(e))
         except:
             print("Unexpected error:", sys.exc_info()[0])
-            logging_error.exception("Exception occurred")
+            logging_error.error("Exception occurred")
 
     def _check_input():
         print("_check_input runing")
-        arg = 'data_parse_batch.py'
+        arg = 'data_parse_batch_v1.3.py'
         home = str(Path(__file__).parents[0])
         try:
             print("file_path={}".format(os.path.join(home, arg)))
             f = open(os.path.join(home, arg), 'rb')
         except OSError as e:
             print('cannot open', arg)
-            logging_error.exception(e)
+            logging_error.error(e)
         else:
             file_open_message = "{} has {} lines.".format(
                 arg, len(f.readlines()))
