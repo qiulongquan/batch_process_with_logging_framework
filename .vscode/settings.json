@@ -9,4 +9,5 @@
     "editor.formatOnType": true,
     "python.formatting.provider": "yapf",
     "python.linting.flake8Enabled": true,
+    "python.pythonPath": "C:\\Users\\QLQ\\AppData\\Local\\Programs\\Python\\Python38\\python.exe",
 }
