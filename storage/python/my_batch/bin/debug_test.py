@@ -33,12 +33,12 @@ import numpy as np
 
 import ptvsd
 print("waiting...")
-ptvsd.enable_attach(address=('0.0.0.0', 5678))
+ptvsd.enable_attach(address=("0.0.0.0", 3000))
 ptvsd.wait_for_attach()
 
 print('hello python!')
 
-for i in range(10**5):
+for i in range(3):
     print("aaaa")
     pass
 
